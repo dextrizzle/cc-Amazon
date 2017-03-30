@@ -3,7 +3,11 @@ Rails.application.routes.draw do
   get '/about', to: 'about#index'
   get '/contact', to: 'contact#index'
   post '/contact', to: 'contact#create', as: 'contact_submit'
+  resources :products
 
+  # get '/products', to: 'products#index'
+  # get '/products/new', to: 'products#new'
+  # post '/products/new', to: 'products#new'
   # delete '/questions/:id', to: 'questions#destroy'
   # get '/questions/:id/edit', to: 'questions#edit'
   # get '/questions/:id', to: 'questions#show'
