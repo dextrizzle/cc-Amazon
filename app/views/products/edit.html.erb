@@ -13,5 +13,8 @@
     <%= f.label :price %>
     <%= f.text_area :price %>
   </div>
+  <div>
+    <%= f.collection_select :category_id, Category.order(:name), :id, :name %>
+  </div>
   <%= f.submit %>
 <% end %>
