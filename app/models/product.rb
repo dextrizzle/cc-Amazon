@@ -1,4 +1,7 @@
 class Product < ApplicationRecord
+
+  belongs_to :category
+
   validates(:title, { presence: true, uniqueness: true })
   validates(:description,{ presence: true, length: { minimum: 10 } })
   validates :price,{ presence: true, numericality: true }
