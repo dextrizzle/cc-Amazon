@@ -16,13 +16,31 @@
     <a href="/contact">contact</a>
     |
     <a href="/products">products</a>
-    |
-    <a href="/users/new">sign up</a>
-    |
-    <a href="/sessions/new">log in</a>
-    |
-    <%= link_to 'Logout', sessions_path, method: :delete, data: { confirm: 'Logout?'} %>
+
+    <% if user_signed_in? %>
+      |
+      <%= link_to 'Logout', sessions_path, method: :delete, data: { confirm: 'Logout?'} %>
+    <% else %>
+      |
+      <a href="/users/new">sign up</a>
+      |
+      <a href="/sessions/new">log in</a>
+    <% end %>
     <hr>
-    <%= yield %>
+    <% if flash[:notice] %>
+      <div class="alert alert-success"><%= flash[:notice] %></div>
+    <% elsif flash[:alert] %>
+      <div class="alert alert-danger  "><%= flash[:alert] %></div>
+    <% end %>
+
+
+    <div class="container">
+      <div>
+        <% if current_user %>
+            <%= current_user.first_name %>
+        <% end %>
+      </div>
+      <%= yield %>
+    </div>
   </body>
 </html>

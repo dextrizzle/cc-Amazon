@@ -10,7 +10,7 @@
   Category.create name: Faker::Hacker.noun
 end
 
-puts 'created 6 products'
+puts 'created 6 categories'
 
 1000.times do
   category = Category.all.sample
