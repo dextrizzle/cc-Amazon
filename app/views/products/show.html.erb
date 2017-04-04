@@ -1,5 +1,8 @@
 <h1><%= @product.title %></h1>
+
 <p><%= @product.description %></p>
+<p>uploaded by: <%= @product.user.first_name %></p>
+
 <p>price: $<%= @product.price %></p>
 
 <%#rails enables us to make links and non-GET requests by setting the `method`
@@ -31,6 +34,7 @@
 <% if @product.reviews != nil %>
   <% @product.reviews.each do |review| %>
       <p><%= review.body %></p>
+      <p>Uploaded by <%= review.user.first_name %></p>
         <%= link_to('Delete', product_review_path(@product,review), method: :delete, data: {confirm: 'YYEA'}) %>
       <hr>
   <% end %>
