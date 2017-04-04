@@ -1,13 +1,17 @@
 class User < ApplicationRecord
-  # def self.search(find)
-  #   results = self.where("first_name like ?", "%#{find}%")
-  #   results.or self.where("last_name like ?", "%#{find}%")
-  #   results
-  # end
-  def self.search(find)
-    self.where("first_name like ? or last_name like ? or email like ?", "%#{find}%","%#{find}%","%#{find}%")
+  validates(:first_name, { presence: true })
+  validates(:last_name, { presence: true })
+  validates(:email, { presence: true, uniqueness: true})
+
+  def self.search(search_term)
+    where(['first_name ILIKE ? OR last_name ILIKE ? OR email ILIKE ?', "%#{search_term}%", "%#{search_term}%", "%#{search_term}%"])
   end
-  # def self.search(string)
-  #   where(['first_name ILIKE ? OR last_name ILIKE ?', "%#{string}%", "%#{string}%"]).order(['last_name ILIKE ?', "%#{string}%"], ['first_name ILIKE ?', "%#{string}%"])
-  # end
+
+  def self.created_after(date)
+    where(['created_at > ?', "#{date}"])
+  end
+
+  def self.is_not(name)
+    where('first_name != ? AND last_name != ?', "#{name}", "#{name}")
+  end
 end
