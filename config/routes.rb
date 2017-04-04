@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   get '/about', to: 'about#index'
   get '/contact', to: 'contact#index'
   post '/contact', to: 'contact#create', as: 'contact_submit'
-  resources :products
+  resources :products do
+    resources :reviews
+  end
+
 
   # get '/products', to: 'products#index'
   # get '/products/new', to: 'products#new'

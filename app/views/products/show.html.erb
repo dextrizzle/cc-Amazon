@@ -6,3 +6,33 @@
     attribute for `link_to`. Rails uses Javascript to accomplish that. %>
 <h3><%= link_to 'edit', edit_product_path(@product)%></h3>
 <h3><%= link_to 'delete', product_path(@product), method: :delete, data: {confirm:'Are you sure?'} %></h3>
+
+<hr>
+
+<h2>Add a review</h2>
+<%= form_for [@product, @review] do |f| %>
+  <div>
+    <%= f.label :body %>
+    <%= f.text_area :body %>
+  </div>
+  <%= f.submit %>
+<% end %>
+
+<% if @review.errors.any? %>
+    <hr>
+  <ul>
+    <% @review.errors.full_messages.each do |msg| %>
+        <li><%= msg %><li>
+    <% end %>
+  </ul>
+<% end %>
+
+<hr>
+<% if @product.reviews != nil %>
+  <% @product.reviews.each do |review| %>
+      <p><%= review.body %></p>
+        <%= link_to('Delete', product_review_path(@product,review), method: :delete, data: {confirm: 'YYEA'}) %>
+      <hr>
+  <% end %>
+<% end %>
+
