@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   # get '/questions/:id', to: 'questions#show'
   # post '/questions/:id/comments', to: 'comments#create'
   # get '/faq', to: 'home#faq'
+  resources :users, only: [:new, :create]
 
   root 'home#index'
 
