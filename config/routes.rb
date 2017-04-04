@@ -18,6 +18,11 @@ Rails.application.routes.draw do
   # get '/faq', to: 'home#faq'
   resources :users, only: [:new, :create]
 
+  resources :sessions, only: [:new, :create] do
+    delete :destroy, on: :collection
+  end
+
+
   root 'home#index'
 
 end
