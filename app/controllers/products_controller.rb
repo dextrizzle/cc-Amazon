@@ -6,11 +6,11 @@ class ProductsController < ApplicationController
     @product = Product.new
   end
   def create
-    product_params = params.require(:product,:category).permit([:title,:body,:name])
     @product = Product.new product_params
     @product.user = current_user
 
     if @product.save
+      ProductMailer.new_product_notify(@product).deliver_now
       redirect_to product_path(@product), notice: 'Product created!'
     else
       flash[:alert] = "uuuuuuuuuuuuuuuuuuuuu"
@@ -18,6 +18,8 @@ class ProductsController < ApplicationController
 
     end
   end
+
+
   def show
     @product = Product.find params[:id]
     @review = Review.new

@@ -1,0 +1,5 @@
+Hello <%= @product.user.full_name %>,
+<%= @user.full_name.capitalize %> has just liked your post titled: <%= @product.title %>.
+Click <%= link_to "here", product_url(@product) %> to view your post.
+Regards,
+Awesome Posts Team
