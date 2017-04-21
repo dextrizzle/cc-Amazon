@@ -7,6 +7,8 @@
 
 <%#rails enables us to make links and non-GET requests by setting the `method`
     attribute for `link_to`. Rails uses Javascript to accomplish that. %>
+
+
 <h3><%= link_to 'edit', edit_product_path(@product)%></h3>
 <h3><%= link_to 'delete', product_path(@product), method: :delete, data: {confirm:'Are you sure?'} %></h3>
 
@@ -34,7 +36,12 @@
 <% if @product.reviews != nil %>
   <% @product.reviews.each do |review| %>
       <p><%= review.body %></p>
-      <p>Uploaded by <%= review.user.first_name %></p>
+      <p>Uploaded by <%= review.user.first_name %>  |  <%= review.likes.count %> likes</p>
+        <% if user_signed_in? && @review&.liked_by?(current_user) %>
+            <%= link_to "-like", product_review_like_path(@product, review, review.like_for(current_user)), method: :delete %>
+        <% else %>
+            <%= link_to "+like", product_review_likes_path(@product, review), class: "icon-big", method: :post %>
+        <% end %>
         <%= link_to('Delete', product_review_path(@product,review), method: :delete, data: {confirm: 'YYEA'}) %>
       <hr>
   <% end %>

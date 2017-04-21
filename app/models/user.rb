@@ -10,7 +10,10 @@ class User < ApplicationRecord
   #we will get a method called 'authenticate' which will test if the user has entered the correct password or not
   has_secure_password
   has_many :products
-  has_many :reviews
+  has_many :reviews, dependent: :nullify
+
+  has_many :likes, dependent: :destroy
+  has_many :liked_reviews, through: :likes, source: :review
 
   validates(:first_name, { presence: true })
   validates(:last_name, { presence: true })

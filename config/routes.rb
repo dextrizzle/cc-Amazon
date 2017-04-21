@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   get '/contact', to: 'contact#index'
   post '/contact', to: 'contact#create', as: 'contact_submit'
   resources :products do
-    resources :reviews
+    resources :reviews do
+      resources :likes, only: [:create, :destroy]
+    end
   end
 
 

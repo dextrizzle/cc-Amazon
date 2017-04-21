@@ -9,19 +9,25 @@
 6.times do
   Category.create name: Faker::Hacker.noun
 end
-
 puts 'created 6 categories'
+
+20.times do
+  User.create first_name: Faker::Name.first_name,
+              last_name: Faker::Name.last_name,
+              email: Faker::Internet.email,
+              password: 'secret'
+end
+puts 'created 20 users'
 
 1000.times do
   category = Category.all.sample
+  user = User.all.sample
 
   Product.create title: Faker::Hacker.say_something_smart,
                   description: Faker::Hacker.say_something_smart,
                   price: rand(1000),
-                  category_id: category.id
-  User.create first_name: Faker::Name.first_name,
-              last_name: Faker::Name.last_name,
-              email: Faker::Internet.email
-end
+                  category_id: category.id,
+                  user_id: user.id
 
+end
 puts 'Created 1000 products'
