@@ -4,6 +4,9 @@ class Product < ApplicationRecord
   belongs_to :user
   has_many :reviews
 
+  has_many :taggings, dependent: :destroy
+  has_many :tags, through: :taggings
+
   validates(:title, { presence: true, uniqueness: true })
   validates(:description,{ presence: true, length: { minimum: 10 } })
   validates :price,{ presence: true, numericality: true }
